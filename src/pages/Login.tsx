@@ -21,6 +21,8 @@ const LogIn = () => {
         onSuccess(data) {
             if (data) {
                 dispatch({type: "LOG_IN", payload: data})
+                username.reset()
+                password.reset()
                 navigate("/");
             }
 
@@ -35,9 +37,7 @@ const LogIn = () => {
         
         e.preventDefault()
         mutation.mutate()
-        username.reset()
-        password.reset()
-        console.log("SUBMIT")
+        
     }
     if (user.isAuthenticated) {
         return <Navigate to={"/"} replace={true}/>

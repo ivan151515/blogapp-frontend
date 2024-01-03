@@ -1,7 +1,9 @@
 import axios from "axios";
+import { User } from "../types/user";
 interface AuthData  {
     username: string,
     password: string
+    name? : string
 }
 
 interface LoginResponse {
@@ -11,9 +13,10 @@ interface LoginResponse {
 }
 
 export const register = async(data : AuthData) => {
+    console.log(data)
     try {
-        const response = await axios.post("/users", data);
-
+        const response = await axios.post<User>("/users", data);
+        console.log(response.data)
         return response.data
     } catch (error) {
         console.error(error)
