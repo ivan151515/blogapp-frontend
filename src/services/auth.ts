@@ -4,6 +4,12 @@ interface AuthData  {
     password: string
 }
 
+interface LoginResponse {
+    token: string,
+    id: number,
+    username: string
+}
+
 export const register = async(data : AuthData) => {
     try {
         const response = await axios.post("/users", data);
@@ -16,7 +22,7 @@ export const register = async(data : AuthData) => {
 
 export const login = async(data: AuthData) => {
     try {
-        const response = await axios.post("/auth", data)
+        const response = await axios.post<LoginResponse>("/auth", data)
 
         return response.data
     } catch (error) {

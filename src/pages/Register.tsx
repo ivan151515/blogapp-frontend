@@ -1,13 +1,15 @@
 import { Button, TextField } from "@mui/material";
 import { useTextField } from "../hooks/useTextField";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { register } from "../services/auth";
+import { useUserValue } from "../context/UserContextHooks";
 
 const Register = () => {
     const username = useTextField();   
     const password = useTextField();
     const confirmPassword = useTextField();
+    const user = useUserValue();
     const mutation = useMutation({
         mutationFn: () => register({username: username.value, password: password.value}),
         onError(error, variables, context) {
@@ -25,6 +27,9 @@ const Register = () => {
         password.reset()
         confirmPassword.reset()
         console.log("SUBMIT")
+    }
+    if (user.isAuthenticated) {
+        return <Navigate to={"/"} replace={true}/>
     }
     return ( <div>
         <h1>Register</h1>

@@ -1,19 +1,32 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useTextField } from "../hooks/useTextField";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { login } from "../services/auth";
+import { useAuthDispatch, useUserValue } from "../context/UserContextHooks";
+import { Action } from "../context/UserContext";
+import {  useState } from "react";
 
 const LogIn = () => {
+    const user = useUserValue() 
+    const navigate = useNavigate();
+    
     const username = useTextField();   
     const password = useTextField();
-
+    const dispatch = useAuthDispatch() as React.Dispatch<Action>
+    
+    const [error, setError] = useState("");
     const mutation = useMutation({
         mutationFn: () => login({username: username.value, password: password.value}),
-        onSuccess(data, variables, context) {
-            console.log(data,variables, context)
+        onSuccess(data) {
+            if (data) {
+                dispatch({type: "LOG_IN", payload: data})
+                navigate("/");
+            }
+
         },
         onError(error, variables, context) {
+            setError("Incorrect credentials")
             console.log(error, variables, context)
         },
     })
@@ -26,10 +39,16 @@ const LogIn = () => {
         password.reset()
         console.log("SUBMIT")
     }
-    return ( <div>
+    if (user.isAuthenticated) {
+        return <Navigate to={"/"} replace={true}/>
+    }
+    return (
+        
+        <div>
         <Typography>
         Log In
         </Typography>
+        {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
             <TextField onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
             <TextField onChange={password.onChange} value={password.value} id="standard-basic" label="Password" variant="standard" />
