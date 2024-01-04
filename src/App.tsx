@@ -7,8 +7,23 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Blog from './pages/Blog'
 import { Container } from '@mui/material'
+import { useEffect } from 'react'
+import { verifyToken } from './services/auth'
+import { useAuthDispatch } from './context/UserContextHooks'
 
 function App() {
+  const dispatch = useAuthDispatch();
+  useEffect(() => {
+    const token = window.localStorage.getItem("auth_token")
+    if (token) {
+      verifyToken(token).then(res => {
+        if (res) {
+          dispatch({type: "LOG_IN", payload: {isAuthenticated: true, ...res, token}})
+        }
+      })
+    }
+  },[dispatch])
+
   return (
     <>
         

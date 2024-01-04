@@ -21,6 +21,7 @@ const LogIn = () => {
         onSuccess(data) {
             if (data) {
                 dispatch({type: "LOG_IN", payload: data})
+                window.localStorage.setItem("auth_token", data.token)
                 username.reset()
                 password.reset()
                 navigate("/");
@@ -51,7 +52,7 @@ const LogIn = () => {
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
             <TextField onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
-            <TextField onChange={password.onChange} value={password.value} id="standard-basic" label="Password" variant="standard" />
+            <TextField type="password" onChange={password.onChange} value={password.value} id="standard-basic" label="Password" variant="standard" />
             <Button type="submit">Log In</Button>
         </form>
         <p>Don't have an account? <Link to={"/register"}>Register</Link></p>

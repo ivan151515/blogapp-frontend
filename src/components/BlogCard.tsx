@@ -19,7 +19,7 @@ export default function BlogCard(props: Props) {
   const navigate = useNavigate()
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 720, minWidth: 360 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" component={Link} to={"/user/"+ props.blog.userId}>

@@ -20,3 +20,16 @@ export const getOneBlog = async (id: string) => {
         console.error(error)
     }
 }
+
+export const publishBlog = async (data : Blog, token: string) => {
+    try {
+        const res = await axios.post<Blog>("/blogs", data, {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+        return res.data
+    } catch (error) {
+        console.error()
+    }
+}
