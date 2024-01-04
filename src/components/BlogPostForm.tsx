@@ -1,8 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import { useTextField } from "../hooks/useTextField";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { publishBlog } from "../services/blogs";
 import { useUserValue } from "../context/UserContextHooks";
+import { Blog } from "../types/blog";
 
 interface Props {
     handleClose : () => void;
@@ -10,11 +11,22 @@ interface Props {
 
 const BlogPostForm = ({handleClose}: Props) => {
     const content = useTextField()
+    const queryClient = useQueryClient()
     const user = useUserValue()
     const mutation = useMutation({
         mutationFn: () => publishBlog({content: content.value, important: true}, user.token),
         onSuccess(data, variables, context) {
-            console.log(data, variables, context)
+            const previousBlogs = queryClient.getQueryData<Blog[]>("blogs");
+
+            if (data) {
+                let newBlogs = [data];
+                if (previousBlogs != undefined) {
+                    newBlogs = newBlogs.concat(previousBlogs);
+                }
+                queryClient.setQueryData("blogs", newBlogs);
+                console.log(data, variables, context)
+            }
+            
         },
         onError(error, variables, context) {
             console.log(error, variables, context)

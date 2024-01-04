@@ -8,14 +8,15 @@ import { red } from '@mui/material/colors';
 import { Blog } from '../types/blog';
 import { Link, useNavigate } from 'react-router-dom';
 import { CardActions, IconButton } from '@mui/material';
-import { ChatBubble } from '@mui/icons-material';
+import { ChatBubble, Remove } from '@mui/icons-material';
+import { useUserValue } from '../context/UserContextHooks';
 
 interface Props {
     blog: Blog
 }
 
 export default function BlogCard(props: Props) {
-
+  const user = useUserValue()
   const navigate = useNavigate()
 
   return (
@@ -37,10 +38,14 @@ export default function BlogCard(props: Props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="view comments" >
-            <ChatBubble onClick={() => navigate("/blog/"+ props.blog.id)}/>
+        <IconButton aria-label="view comments" onClick={() => navigate("/blog/"+ props.blog.id)}>
+            <ChatBubble />
         </IconButton>
-      </CardActions>
+        {props.blog.userId == user.id && 
+                <IconButton aria-label="view comments" onClick={()=> console.log("delete")}>
+                    <Remove />
+                </IconButton>}
+        </CardActions>
 
     </Card>
   );

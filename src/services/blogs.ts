@@ -33,3 +33,15 @@ export const publishBlog = async (data : Blog, token: string) => {
         console.error()
     }
 }
+
+export const deleteBlog = async (id: number, token: string) => {
+    try {
+        await axios.delete("/blogs/"+id, {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
