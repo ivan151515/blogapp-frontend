@@ -35,7 +35,6 @@ const BlogPostForm = ({handleClose}: Props) => {
     const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (content.value.trim().length > 0) {
-            //TODO: CORRECT BELOW VALUES, PUT IN JUST TO STOP THE ERRORS
             mutation.mutate()
             
         }

@@ -1,13 +1,18 @@
 import { Avatar, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Profile } from "../types/profile";
+import { useUserValue } from "../context/UserContextHooks";
+import { User } from "../types/user";
 
 interface Props {
-    user : Profile
+    user : User
 }
 
 const UserProfileInfo = ({user}: Props) => {
     console.log(user)
+    const authUser = useUserValue()
+    if (!user.profile) {
+        return <div>ERROR</div>
+    }
     return ( 
         <Card sx={{ maxWidth: 720, minWidth: 360 }}>
       <CardHeader
@@ -26,13 +31,13 @@ const UserProfileInfo = ({user}: Props) => {
           Username: {user.name}
         </Typography>
         <Typography>
-            Bio: {user.bio ? user.bio : "User has not updated their bio yet"}
+            Bio: {user.profile.bio ? user.profile.bio : (authUser.id == user.id ? "You have" : "User has") +" not updated bio yet"}
         </Typography>
         <Typography>
-            Occupation: {user.occupation ? user.occupation : "User has not updated their occupation yet"}
+            Occupation: {user.profile.occupation ? user.profile.occupation : (authUser.id == user.id ? "You have" : "User has")+ " not updated occupation yet"}
         </Typography>
         <Typography>
-            Age: {user.age ? user.age : "User has not updated their age yet"}
+            Age: {user.profile.age ? user.profile.age :(authUser.id == user.id ? "You have" : "User has")+ " not updated age yet"}
         </Typography>
       </CardContent>
     

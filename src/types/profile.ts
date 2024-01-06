@@ -1,10 +1,17 @@
 import { Blog } from "./blog";
-import { User } from "./user";
 
-export interface Profile extends User {
+export interface Profile {
     bio?: string,
     age?: number,
     created?: boolean,
     occupation?: string,
     blogs?: Blog[]
+}
+
+export type UpdateProfile = {
+    bio?: string,
+    age?: number,
+    occupation?: string,
+    id: number,
+    token: string
 }

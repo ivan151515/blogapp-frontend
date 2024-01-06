@@ -10,6 +10,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CardActions, IconButton } from '@mui/material';
 import { ChatBubble, Remove } from '@mui/icons-material';
 import { useUserValue } from '../context/UserContextHooks';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteBlog } from '../services/blogs';
 
 interface Props {
     blog: Blog
@@ -17,8 +19,17 @@ interface Props {
 
 export default function BlogCard(props: Props) {
   const user = useUserValue()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const mutation = useMutation({
+    mutationFn: () =>  deleteBlog(props.blog.id as number, user.token),
 
+    onSuccess: () => queryClient.invalidateQueries({predicate: query =>
+        query.queryKey === "blogs" || (query.queryKey[0] == "profile" && query.queryKey[1] === String(user.id))
+  }),})
+  const handleDelete = () => {
+    mutation.mutate()
+  }
   return (
     <Card sx={{ maxWidth: 720, minWidth: 360 }}>
       <CardHeader
@@ -42,7 +53,7 @@ export default function BlogCard(props: Props) {
             <ChatBubble />
         </IconButton>
         {props.blog.userId == user.id && 
-                <IconButton aria-label="view comments" onClick={()=> console.log("delete")}>
+                <IconButton aria-label="view comments" onClick={handleDelete}>
                     <Remove />
                 </IconButton>}
         </CardActions>
