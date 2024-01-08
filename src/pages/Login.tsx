@@ -5,69 +5,79 @@ import { useMutation } from "react-query";
 import { login } from "../services/auth";
 import { useAuthDispatch, useUserValue } from "../context/UserContextHooks";
 import { Action } from "../context/UserContext";
-import {  useState } from "react";
+import { useState } from "react";
 
 const LogIn = () => {
-    const user = useUserValue() 
-    const navigate = useNavigate();
-    
-    const username = useTextField();   
-    const password = useTextField();
-    const dispatch = useAuthDispatch() as React.Dispatch<Action>
-    
-    const [error, setError] = useState("");
-    const mutation = useMutation({
-        mutationFn: () => login({username: username.value, password: password.value}),
-        onSuccess(data) {
-            if (data) {
-                dispatch({type: "LOG_IN", payload: data})
-                window.localStorage.setItem("auth_token", data.token)
-                username.reset()
-                password.reset()
-                navigate("/");
-            }
+  const user = useUserValue();
+  const navigate = useNavigate();
 
-        },
-        onError(error, variables, context) {
-            setError("Incorrect credentials")
-            console.log(error, variables, context)
-        },
-    })
+  const username = useTextField();
+  const password = useTextField();
+  const dispatch = useAuthDispatch() as React.Dispatch<Action>;
 
-    const handleSubmit = (e : React.FormEvent<HTMLFormElement>)=> {
-        
-        e.preventDefault()
-        mutation.mutate()
-        
-    }
-    if (user.isAuthenticated) {
-        return <Navigate to={"/"} replace={true}/>
-    }
-    return (
-        
-        <div>
+  const [error, setError] = useState("");
+  const mutation = useMutation({
+    mutationFn: () =>
+      login({ username: username.value, password: password.value }),
+    onSuccess(data) {
+      if (data) {
+        dispatch({ type: "LOG_IN", payload: data });
+        window.localStorage.setItem("auth_token", data.token);
+        username.reset();
+        password.reset();
+        navigate("/");
+      }
+    },
+    onError(error, variables, context) {
+      setError("Incorrect credentials");
+      console.log(error, variables, context);
+    },
+  });
 
-        {error && <p>{error}</p>}
-        <form onSubmit={handleSubmit}>
-            <Grid
-                container
-                
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                sx={{ minHeight: '100vh',
-                    marginTop: "45px"
-                }}>
-                    <Typography variant="h4">
-        Log In
-        </Typography>
-            <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}}  onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
-            <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}}  type="password" onChange={password.onChange} value={password.value} id="standard-basic" label="Password" variant="standard" />
-            <Button type="submit">Log In</Button>
-            <Typography sx={{marginTop: "15px"}}>Don't have an account? <Link to={"/register"}>Register</Link></Typography>
-            </Grid>
-        </form>
-    </div> );
-}
- 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutation.mutate();
+  };
+  if (user.isAuthenticated) {
+    return <Navigate to={"/"} replace={true} />;
+  }
+  return (
+    <div>
+      {error && <p>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          sx={{ minHeight: "100vh", marginTop: "45px" }}
+        >
+          <Typography variant="h4">Log In</Typography>
+          <TextField
+            sx={{ width: "33%", margin: "10px", minWidth: "125px" }}
+            onChange={username.onChange}
+            value={username.value}
+            id="standard-basic"
+            label="Username"
+            variant="standard"
+          />
+          <TextField
+            sx={{ width: "33%", margin: "10px", minWidth: "125px" }}
+            type="password"
+            onChange={password.onChange}
+            value={password.value}
+            id="standard-basic"
+            label="Password"
+            variant="standard"
+          />
+          <Button type="submit">Log In</Button>
+          <Typography sx={{ marginTop: "15px" }}>
+            Don't have an account? <Link to={"/register"}>Register</Link>
+          </Typography>
+        </Grid>
+      </form>
+    </div>
+  );
+};
+
 export default LogIn;

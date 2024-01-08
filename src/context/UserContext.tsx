@@ -1,47 +1,48 @@
-import { createContext, useReducer, PropsWithChildren, Dispatch } from 'react'
+import { createContext, useReducer, PropsWithChildren, Dispatch } from "react";
 
 export interface AuthUser {
-    token : string,
-    isAuthenticated?: boolean,
-    username: string,
-    id: number
+  token: string;
+  isAuthenticated?: boolean;
+  username: string;
+  id: number;
 }
 
 export interface Action {
-    type: string,
-    payload: AuthUser
+  type: string;
+  payload: AuthUser;
 }
 
-const defaultValue : AuthUser = {
-    token: '',
-    isAuthenticated: false,
-    username: '',
-    id: -1
-}
+const defaultValue: AuthUser = {
+  token: "",
+  isAuthenticated: false,
+  username: "",
+  id: -1,
+};
 
-const userReducer = (state:AuthUser = defaultValue,  action: Action) : AuthUser => {
+const userReducer = (
+  state: AuthUser = defaultValue,
+  action: Action,
+): AuthUser => {
   switch (action.type) {
     case "LOG_IN":
-        return {...action.payload, isAuthenticated: true }
+      return { ...action.payload, isAuthenticated: true };
     case "LOG_OUT":
-        return defaultValue;
+      return defaultValue;
     default:
-        return state;
+      return state;
   }
-}
+};
 
 const UserContext = createContext<(AuthUser | Dispatch<Action>)[] | null>(null);
 
+export const UserContextProvider = (props: PropsWithChildren) => {
+  const [user, userDispatch] = useReducer(userReducer, defaultValue);
 
-export const UserContextProvider = (props : PropsWithChildren) => {
-
-    const [user, userDispatch] = useReducer(userReducer, defaultValue);
-
-    return <UserContext.Provider value={[user, userDispatch]}>
+  return (
+    <UserContext.Provider value={[user, userDispatch]}>
       {props.children}
     </UserContext.Provider>
-  
-}
+  );
+};
 
 export default UserContext;
-
