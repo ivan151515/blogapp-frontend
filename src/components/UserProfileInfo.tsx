@@ -14,7 +14,7 @@ const UserProfileInfo = ({user}: Props) => {
         return <div>ERROR</div>
     }
     return ( 
-        <Card sx={{ maxWidth: 720, minWidth: 360 }}>
+        <Card sx={{ width: "75%", minWidth: "120px", marginBottom: "15px" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="profile">
@@ -27,7 +27,7 @@ const UserProfileInfo = ({user}: Props) => {
         
       />
       <CardContent>
-        <Typography textAlign={"center"} variant="h6" color="text.secondary">
+        <Typography variant="overline">
           Username: {user.name}
         </Typography>
         <Typography>

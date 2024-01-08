@@ -25,16 +25,32 @@ const Profile = () => {
     }
 
     if (query.data) {
-        return ( <Grid container spacing={2}>
-            <Grid item xs={8} >
-                <Typography variant="h5" margin={2}  textAlign={"center"}>Blogs published by {query.data.name}</Typography>
-                {query.data?.blogs?.map(b => <BlogCard blog={{...b, user: query.data}}  key={b.id}/>)}
-                {(user.id == Number(id)) && <AddBlogPostForm />}
-            </Grid>
-            <Grid item xs={4}>
+        return ( <Grid container spacing={2}
+                    direction={"row-reverse"}
+                >
+            <Grid item xs={12}
+                md={6}
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                
+            >
               <Typography variant="h5" margin={2}  textAlign={"center"}>Profile info</Typography>
               <UserProfileInfo user={query.data} />
               {query.data.id == user.id && <EditProfile />}
+            </Grid>
+            <Grid item xs={12}
+                md={6}
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+            
+            >
+                <Typography variant="h5" margin={2}  textAlign={"center"}>Blogs published by {query.data.name}</Typography>
+                {query.data?.blogs?.map(b => <BlogCard blog={{...b, user: query.data}}  key={b.id}/>)}
+                {(user.id == Number(id)) && <AddBlogPostForm />}
             </Grid>
           </Grid>);
     }

@@ -31,7 +31,7 @@ export default function BlogCard(props: Props) {
     mutation.mutate()
   }
   return (
-    <Card sx={{ maxWidth: 720, minWidth: 540 }}>
+    <Card sx={{ width: "75%", minWidth: "120px", marginBottom: "15px" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" component={Link} to={"/user/"+ props.blog.userId}>
