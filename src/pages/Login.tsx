@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useTextField } from "../hooks/useTextField";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -46,16 +46,27 @@ const LogIn = () => {
     return (
         
         <div>
-        <Typography>
-        Log In
-        </Typography>
+
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
-            <TextField onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
-            <TextField type="password" onChange={password.onChange} value={password.value} id="standard-basic" label="Password" variant="standard" />
+            <Grid
+                container
+                
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                sx={{ minHeight: '100vh',
+                    marginTop: "45px"
+                }}>
+                    <Typography variant="h4">
+        Log In
+        </Typography>
+            <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}}  onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
+            <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}}  type="password" onChange={password.onChange} value={password.value} id="standard-basic" label="Password" variant="standard" />
             <Button type="submit">Log In</Button>
+            <Typography sx={{marginTop: "15px"}}>Don't have an account? <Link to={"/register"}>Register</Link></Typography>
+            </Grid>
         </form>
-        <p>Don't have an account? <Link to={"/register"}>Register</Link></p>
     </div> );
 }
  

@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useTextField } from "../hooks/useTextField";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -53,16 +53,27 @@ const Register = () => {
         return <Navigate to={"/"} replace={true}/>
     }
     return ( <div>
-        <h1>Register</h1>
+        
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
-            <TextField onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
-            <TextField onChange={name.onChange} value={name.value} id="standard-basic" label="Name" variant="standard" />
-            <TextField onChange={password.onChange} type="password" value={password.value} id="standard-basic" label="Password" variant="standard"/>
-            <TextField onChange={confirmPassword.onChange} type="password" value={confirmPassword.value} id="standard-basic" label="Confirm Password" variant="standard" />
-            <Button type="submit">Register</Button>
+            <Grid
+                container
+                
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                sx={{ minHeight: '100vh',
+                    marginTop: "45px"
+                }}>
+                <Typography variant="h4">Register</Typography>
+                <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}} onChange={username.onChange} value={username.value} id="standard-basic" label="Username" variant="standard" />
+                <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}} onChange={name.onChange} value={name.value} id="standard-basic" label="Name" variant="standard" />
+                <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}} onChange={password.onChange} type="password" value={password.value} id="standard-basic" label="Password" variant="standard"/>
+                <TextField sx={{width: "33%", margin: "10px", minWidth: "125px"}} onChange={confirmPassword.onChange} type="password" value={confirmPassword.value} id="standard-basic" label="Confirm Password" variant="standard" />
+                <Button type="submit">Register</Button>
+                <Typography>Already have an account? <Link to={"/login"}>Log In</Link></Typography>
+            </Grid>
         </form>
-        <p>Already have an account? <Link to={"/login"}>Log In</Link></p>
     </div> );
 }
  

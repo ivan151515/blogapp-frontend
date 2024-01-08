@@ -7,8 +7,8 @@ import { red } from '@mui/material/colors';
 
 import { Blog } from '../types/blog';
 import { Link, useNavigate } from 'react-router-dom';
-import { CardActions, IconButton } from '@mui/material';
-import { ChatBubble, Remove } from '@mui/icons-material';
+import { CardActions, IconButton, Tooltip } from '@mui/material';
+import { ChatBubble, Delete } from '@mui/icons-material';
 import { useUserValue } from '../context/UserContextHooks';
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteBlog } from '../services/blogs';
@@ -31,7 +31,7 @@ export default function BlogCard(props: Props) {
     mutation.mutate()
   }
   return (
-    <Card sx={{ maxWidth: 720, minWidth: 360 }}>
+    <Card sx={{ maxWidth: 720, minWidth: 540 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" component={Link} to={"/user/"+ props.blog.userId}>
@@ -39,7 +39,7 @@ export default function BlogCard(props: Props) {
           </Avatar>
         }
         
-        title="BlogTitle"
+        title={props.blog.user?.username}
         subheader={props.blog.date || "03-01-2024"}
         
       />
@@ -49,13 +49,17 @@ export default function BlogCard(props: Props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="view comments" onClick={() => navigate("/blog/"+ props.blog.id)}>
-            <ChatBubble />
-        </IconButton>
+        <Tooltip title="View comments">
+            <IconButton aria-label="view comments" onClick={() => navigate("/blog/"+ props.blog.id)}>
+                <ChatBubble />
+            </IconButton>
+        </Tooltip>
         {props.blog.userId == user.id && 
-                <IconButton aria-label="view comments" onClick={handleDelete}>
-                    <Remove />
-                </IconButton>}
+                <Tooltip title="Delete comment" >
+                    <IconButton aria-label="view comments" onClick={handleDelete}>
+                    <Delete />
+                </IconButton>
+                </Tooltip>        }
         </CardActions>
 
     </Card>
