@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import CommentCard from "../components/CommentCard";
 import AddCommentForm from "../components/AddCommentForm";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 //TODO: REMOVE PASSWORD FROM GET BLOGS RESPONSE
 const Blog = () => {
@@ -29,7 +29,7 @@ const Blog = () => {
             }}>
             <BlogCard blog={query.data}/>
             {query.data.comments?.map(c => <CommentCard comment={c}/>)}
-            {(!query.data.comments || query.data.comments.length == 0) && <div>No comments yet</div>} 
+            {(!query.data.comments || query.data.comments.length == 0) && <Typography variant="body2">No comments yet</Typography>} 
             <AddCommentForm />
 
         </Grid> );

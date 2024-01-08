@@ -30,7 +30,7 @@ export default function CommentCard(props: Props) {
     mutation.mutate()
   }
   return (
-    <Card  sx={{ marginTop: ".3rem", maxWidth: 540, minWidth: 240}}>
+    <Card   sx={{ width: "69%", minWidth: "120px",minHeight:"120px", marginBottom: "15px", height: "auto" }}>
       <CardHeader 
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" component={Link} to={"/user/"+ props.comment.userId}>

@@ -37,7 +37,7 @@ const CommentPostForm = ({handleClose}: Props) => {
         handleClose()
     }
     return ( <form onSubmit={handleSubmit}>
-        <TextField fullWidth multiline minRows={3} onChange={content.onChange} value={content.value} id="standard-basic" label="What do you think?" variant="standard" />
+        <TextField sx={{maxHeight: "120px"}} fullWidth multiline minRows={3} onChange={content.onChange} value={content.value} id="standard-basic" label="What do you think?" variant="standard" />
         <Button color="success" type="submit">Comment</Button>
     </form> );
 }
