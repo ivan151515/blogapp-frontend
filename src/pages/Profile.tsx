@@ -27,9 +27,9 @@ const Profile = () => {
     if (query.data) {
         return ( <Grid container spacing={2}>
             <Grid item xs={8} >
-                {(user.id == Number(id)) && <AddBlogPostForm />}
                 <Typography variant="h5" margin={2}  textAlign={"center"}>Blogs published by {query.data.name}</Typography>
                 {query.data?.blogs?.map(b => <BlogCard blog={{...b, user: query.data}}  key={b.id}/>)}
+                {(user.id == Number(id)) && <AddBlogPostForm />}
             </Grid>
             <Grid item xs={4}>
               <Typography variant="h5" margin={2}  textAlign={"center"}>Profile info</Typography>

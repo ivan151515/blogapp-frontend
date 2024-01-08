@@ -6,7 +6,6 @@ import LogIn from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Blog from './pages/Blog'
-import { Container } from '@mui/material'
 import { useEffect } from 'react'
 import { verifyToken } from './services/auth'
 import { useAuthDispatch } from './context/UserContextHooks'
@@ -29,7 +28,6 @@ function App() {
         
         <Router>
         <Nav />
-        <Container>
           <Routes>
            
               <Route path='blog/:id' element={<Blog />} />
@@ -39,7 +37,7 @@ function App() {
               <Route path='/' element={<Home />}/>
             
           </Routes>
-        </Container>
+
           
         </Router>
     </>

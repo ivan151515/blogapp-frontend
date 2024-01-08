@@ -26,7 +26,7 @@ export default function AddBlogPostForm() {
   }
   return (
     <div>
-      <Button onClick={handleOpen}>Add a new Blog Post</Button>
+      <Button sx={{marginTop: "10px"}} onClick={handleOpen}>Add a new Blog Post</Button>
       <Modal
         open={open}
         onClose={handleClose}
