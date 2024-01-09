@@ -5,13 +5,13 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 
-import { Blog } from "../types/blog";
+import { Blog } from "../../types/blog";
 import { Link, useNavigate } from "react-router-dom";
 import { CardActions, IconButton, Tooltip } from "@mui/material";
 import { ChatBubble, Delete } from "@mui/icons-material";
-import { useUserValue } from "../context/UserContextHooks";
+import { useUserValue } from "../../context/UserContextHooks";
 import { useMutation, useQueryClient } from "react-query";
-import { deleteBlog } from "../services/blogs";
+import { deleteBlog } from "../../services/blogs";
 
 interface Props {
   blog: Blog;

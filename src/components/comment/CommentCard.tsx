@@ -5,13 +5,13 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 
-import { Comment } from "../types/comment";
+import { Comment } from "../../types/comment";
 import { Link } from "react-router-dom";
 import { CardActions, IconButton, Tooltip } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { useUserValue } from "../context/UserContextHooks";
+import { useUserValue } from "../../context/UserContextHooks";
 import { useMutation, useQueryClient } from "react-query";
-import { deleteComment } from "../services/comment";
+import { deleteComment } from "../../services/comment";
 
 interface Props {
   comment: Comment;

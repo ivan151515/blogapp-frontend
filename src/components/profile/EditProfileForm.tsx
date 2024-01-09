@@ -1,9 +1,9 @@
 import { Button, TextField } from "@mui/material";
-import { useTextField } from "../hooks/useTextField";
+import { useTextField } from "../../hooks/useTextField";
 import { useMutation, useQueryClient } from "react-query";
-import { useUserValue } from "../context/UserContextHooks";
-import { updateUserProfile } from "../services/profile";
-import { UpdateProfile } from "../types/profile";
+import { useUserValue } from "../../context/UserContextHooks";
+import { updateUserProfile } from "../../services/profile";
+import { UpdateProfile } from "../../types/profile";
 
 interface Props {
   handleClose: () => void;

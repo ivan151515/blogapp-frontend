@@ -1,28 +1,27 @@
 import { Button, TextField } from "@mui/material";
-import { useTextField } from "../hooks/useTextField";
+import { useTextField } from "../../hooks/useTextField";
 import { useMutation, useQueryClient } from "react-query";
-import { useUserValue } from "../context/UserContextHooks";
-import { addComment } from "../services/comment";
-import { useParams } from "react-router-dom";
+import { publishBlog } from "../../services/blogs";
+import { useUserValue } from "../../context/UserContextHooks";
 
 interface Props {
   handleClose: () => void;
 }
 
-const CommentPostForm = ({ handleClose }: Props) => {
+const BlogPostForm = ({ handleClose }: Props) => {
   const content = useTextField();
   const queryClient = useQueryClient();
-  const { id } = useParams();
   const user = useUserValue();
-
   const mutation = useMutation({
-    mutationFn: () => addComment(content.value, Number(id), user.token),
-    onSuccess: (data) => {
-      console.log(data);
+    mutationFn: () =>
+      publishBlog({ content: content.value, important: true }, user.token),
+    onSuccess: () =>
       queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey[0] == "blog",
-      });
-    },
+        predicate: (query) =>
+          query.queryKey === "blogs" ||
+          (query.queryKey[0] == "profile" &&
+            query.queryKey[1] === String(user.id)),
+      }),
     onError(error, variables, context) {
       console.log(error, variables, context);
     },
@@ -37,21 +36,20 @@ const CommentPostForm = ({ handleClose }: Props) => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        sx={{ maxHeight: "120px" }}
         fullWidth
         multiline
-        minRows={3}
+        minRows={5}
         onChange={content.onChange}
         value={content.value}
         id="standard-basic"
-        label="What do you think?"
+        label="What's on your mind?"
         variant="standard"
       />
       <Button color="success" type="submit">
-        Comment
+        Publish
       </Button>
     </form>
   );
 };
 
-export default CommentPostForm;
+export default BlogPostForm;

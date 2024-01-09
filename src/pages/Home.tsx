@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import { getBlogs } from "../services/blogs";
-import BlogCard from "../components/BlogCard";
+import BlogCard from "../components/blog/BlogCard";
 import { useUserValue } from "../context/UserContextHooks";
 import { Stack, Typography } from "@mui/material";
-import AddBlogPostForm from "../components/AddBlogPostForm";
+import AddBlogPostForm from "../components/blog/AddBlogPostForm";
 import { Link } from "react-router-dom";
 
 const Home = () => {

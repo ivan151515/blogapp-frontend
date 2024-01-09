@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthDispatch, useUserValue } from "../context/UserContextHooks";
+import { useAuthDispatch, useUserValue } from "../../context/UserContextHooks";
 
 function Nav() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -69,7 +69,9 @@ function Nav() {
             <Tooltip
               title={user.isAuthenticated ? "Open menu" : "Authenticate"}
             >
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton
+                data-testid="nav-menu"
+               onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {user.isAuthenticated ? (
                   <Avatar alt="Remy Sharp">{user.username[0]}</Avatar>
                 ) : (

@@ -1,10 +1,12 @@
 import { useQuery } from "react-query";
 import { getOneBlog } from "../services/blogs";
 import { useParams, useNavigate } from "react-router-dom";
-import BlogCard from "../components/BlogCard";
-import CommentCard from "../components/CommentCard";
-import AddCommentForm from "../components/AddCommentForm";
+import BlogCard from "../components/blog/BlogCard";
+import CommentCard from "../components/comment/CommentCard";
+import AddCommentForm from "../components/comment/AddCommentForm";
 import { Grid, Typography } from "@mui/material";
+import { useUserValue } from "../context/UserContextHooks";
+import { Link } from "react-router-dom";
 
 //TODO: REMOVE PASSWORD FROM GET BLOGS RESPONSE
 const Blog = () => {
@@ -14,7 +16,7 @@ const Blog = () => {
     navigate("/");
   }
   const query = useQuery(["blog", id], () => getOneBlog(id as string));
-
+  const user = useUserValue()
   if (query.isLoading) {
     return <div>Loading....</div>;
   }
@@ -32,7 +34,9 @@ const Blog = () => {
         {(!query.data.comments || query.data.comments.length == 0) && (
           <Typography variant="body2">No comments yet</Typography>
         )}
-        <AddCommentForm />
+        {user.isAuthenticated ? (<AddCommentForm />) : (<Typography sx={{ margin: "15px" }}>
+          Want to say something? <Link to={"/login"}>Log In</Link>
+        </Typography>)}
       </Grid>
     );
   }

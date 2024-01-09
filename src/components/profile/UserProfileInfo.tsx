@@ -6,8 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { useUserValue } from "../context/UserContextHooks";
-import { User } from "../types/user";
+import { useUserValue } from "../../context/UserContextHooks";
+import { User } from "../../types/user";
 
 interface Props {
   user: User;

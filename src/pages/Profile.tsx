@@ -2,11 +2,11 @@ import { useQuery } from "react-query";
 import { getUserProfile } from "../services/profile";
 import { useParams } from "react-router-dom";
 import { Grid, Typography } from "@mui/material";
-import BlogCard from "../components/BlogCard";
-import UserProfileInfo from "../components/UserProfileInfo";
+import BlogCard from "../components/blog/BlogCard";
+import UserProfileInfo from "../components/profile/UserProfileInfo";
 import { useUserValue } from "../context/UserContextHooks";
-import EditProfile from "../components/EditProfile";
-import AddBlogPostForm from "../components/AddBlogPostForm";
+import EditProfile from "../components/profile/EditProfile";
+import AddBlogPostForm from "../components/blog/AddBlogPostForm";
 
 const Profile = () => {
   const { id } = useParams();
