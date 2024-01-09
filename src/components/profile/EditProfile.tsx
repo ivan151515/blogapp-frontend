@@ -25,7 +25,7 @@ export default function EditProfile() {
   };
   return (
     <div>
-      <Button onClick={handleOpen}>Edit profile</Button>
+      <Button onClick={handleOpen}>Edit profile!</Button>
       <Modal
         open={open}
         onClose={handleClose}
