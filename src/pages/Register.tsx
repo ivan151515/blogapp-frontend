@@ -77,7 +77,7 @@ const Register = () => {
             sx={{ width: "33%", margin: "10px", minWidth: "125px" }}
             onChange={username.onChange}
             value={username.value}
-            id="standard-basic"
+            id="username"
             label="Username"
             variant="standard"
           />
@@ -85,7 +85,7 @@ const Register = () => {
             sx={{ width: "33%", margin: "10px", minWidth: "125px" }}
             onChange={name.onChange}
             value={name.value}
-            id="standard-basic"
+            id="name"
             label="Name"
             variant="standard"
           />
@@ -94,7 +94,7 @@ const Register = () => {
             onChange={password.onChange}
             type="password"
             value={password.value}
-            id="standard-basic"
+            id="password"
             label="Password"
             variant="standard"
           />
@@ -103,7 +103,7 @@ const Register = () => {
             onChange={confirmPassword.onChange}
             type="password"
             value={confirmPassword.value}
-            id="standard-basic"
+            id="confirm-password"
             label="Confirm Password"
             variant="standard"
           />

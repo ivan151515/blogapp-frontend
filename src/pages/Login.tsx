@@ -30,8 +30,12 @@ const LogIn = () => {
     },
     onError(error, variables, context) {
       setError("Incorrect credentials");
-      console.log(error, variables, context);
+      setTimeout(() => {
+        setError("")
+      }, 2000)
+      console.log(error, "error", variables, context);
     },
+    
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +47,6 @@ const LogIn = () => {
   }
   return (
     <div>
-      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <Grid
           container
@@ -52,6 +55,7 @@ const LogIn = () => {
           alignItems="center"
           sx={{ minHeight: "100vh", marginTop: "45px" }}
         >
+          {error && <Typography color={"red"} variant="body2">{error}</Typography>}
           <Typography variant="h4">Log In</Typography>
           <TextField
             sx={{ width: "33%", margin: "10px", minWidth: "125px" }}
@@ -70,7 +74,7 @@ const LogIn = () => {
             label="Password"
             variant="standard"
           />
-          <Button type="submit">Log In</Button>
+          <Button id="login-button" type="submit">Log In</Button>
           <Typography sx={{ marginTop: "15px" }}>
             Don't have an account? <Link to={"/register"}>Register</Link>
           </Typography>

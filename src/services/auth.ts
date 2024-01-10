@@ -22,7 +22,7 @@ export const register = async (data: AuthData) => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw new Error("failed register")
   }
 };
 
@@ -32,7 +32,7 @@ export const login = async (data: AuthData) => {
 
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw new Error("Failed log in")
   }
 };
 
